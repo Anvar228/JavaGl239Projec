@@ -100,6 +100,6 @@ public class Figures {
             gl.glEnd();
     }
 
-    }}
+    }}//
 
 
