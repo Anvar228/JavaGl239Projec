@@ -74,6 +74,32 @@ public class Figures {
                gl.glVertex2d( pos1.x, pos1.y);
                gl.glEnd();}
        }
-    public static void renderCircle(center)
-}
+    public static void renderCircle(GL2 gl,Vector2  pos, double r, boolean filled){
+        if(filled==true){
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glVertex2d(pos.x,pos.y);
+        int n=3600;
+        for (int i = 0; i <=n; i++) {
+           double a=(2*Math.PI/n)*i;
+           double x=r*Math.cos(a);
+           double y=r*Math.sin(a);
+           gl.glVertex2d(x,y);
+           }
+        gl.glEnd();
+        }
+        else{
+            gl.glBegin(GL.GL_TRIANGLE_FAN);
+            gl.glVertex2d(pos.x,pos.y);
+            int n=10000;
+            for (int i = 0; i <=n; i++) {
+                double a=(2*Math.PI/n)*i;
+                double x=r*Math.cos(a);
+                double y=r*Math.sin(a);
+                gl.glVertex2d(x,y);
+            }
+            gl.glEnd();
+    }
+
+    }}
+
 

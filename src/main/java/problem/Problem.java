@@ -136,7 +136,8 @@ public class Problem {
         }
        // Figures.renderLine(gl,new Vector2(0,1) , new Vector2(-0,0),1);
        // Figures.renderTriangle(gl,new Vector2(0,0.3) , new Vector2(-0.9,0),new Vector2(0.4,0.5),false);
-        Figures.renderQuad(gl,new Vector2(1,1) , new Vector2(1,-1),new Vector2(-1,-1),new Vector2(-1,1),true);
+       // Figures.renderQuad(gl,new Vector2(1,1) , new Vector2(1,-1),new Vector2(-1,-1),new Vector2(-1,1),true);
+        Figures.renderCircle(gl,new Vector2(0,0),0.5,false);
 
     }
 
