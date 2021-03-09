@@ -16,13 +16,13 @@ public class Rectangle {
         double y;
         this.A = pos1;
         this.B = pos2;
-        Vector2  e;
-        int a;
-        int b;
-        int c;
-        this.C = e;
-        this.D =Math.abs( a*x+b*y+c)/Math.sqrt(a*a+b*b) ;
-        a*x+b*y+c=0;
+        Vector2  e=new ;
+//        int a;
+//        int b;
+//        int c;
+//        this.C = e;
+//        this.D =Math.abs( a*x+b*y+c)/Math.sqrt(a*a+b*b) ;
+//        a*x+b*y+c=0;
 
     }
 
