@@ -12,17 +12,21 @@ public class Rectangle {
     Vector2 D;
     Vector2 E;
     Vector2 L;
-
+    Vector2 v;
+    Vector2 P;
     public Rectangle(Vector2 pos1, Vector2 pos2,Vector2 pos3) {
         double x;
         double y;
         this.A = pos1;
         this.B = pos2;
         this.E = pos3;
+        P=new Vector2((-1)*(B.x*A.y-B.x*A.y+B.x*B.y-B.y*A.x)*(B.y-A.y))
         L = new Vector2(
                L.x=(pos2.y-pos1.y)*(x-pos3.x)+(pos1.x-pos2.x)*(y-pos3.y);
                L.y=
         );
+
+
         Vector2 lp = pos3.minus(L);
         Vector2 C = lp.plus(B);
         Vector2 D = lp.plus(A);
