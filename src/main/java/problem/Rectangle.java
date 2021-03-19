@@ -14,24 +14,29 @@ public class Rectangle {
     Vector2 L;
     Vector2 v;
     Vector2 P;
-    public Rectangle(Vector2 pos1, Vector2 pos2,Vector2 pos3) {
+
+    public Rectangle(Vector2 pos1, Vector2 pos2, Vector2 pos3) {
         double x;
         double y;
         this.A = pos1;
         this.B = pos2;
         this.E = pos3;
-        P=new Vector2((-1)*(B.x*A.y-B.x*A.y+B.x*B.y-B.y*A.x)*(B.y-A.y))
-        L = new Vector2(
-               L.x=(pos2.y-pos1.y)*(x-pos3.x)+(pos1.x-pos2.x)*(y-pos3.y);
-               L.y=
+        double U = (-1) * ((B.x * A.y - B.x * A.y + B.x * B.y - B.y * A.x) * (B.y - A.y) + (A.x * E.x - B.x * E.x + A.y * E.y - B.y * E.y) + (B.x - A.x)) /
+                ((B.x - A.x) * (B.x - A.x) + (A.y - B.y) * A.y - B.y);
+        double F = (B.x * A.y - B.x * A.y + B.x * B.y - B.y * A.x);
+        double S = (A.x * E.x - B.x * E.x + A.y * E.y - B.y * E.y);
+        P = new Vector2(
+                (-1) * ((B.x * A.y - B.x * A.y + B.x * B.y - B.y * A.x) * (B.y - A.y) + (A.x * E.x - B.x * E.x + A.y * E.y - B.y * E.y) + (B.x - A.x)) /
+                        ((B.x - A.x) * (B.x - A.x) + (A.y - B.y) * A.y - B.y),
+                (S - U * (A.y - B.y) / (B.x - A.x))
         );
 
 
-        Vector2 lp = pos3.minus(L);
-        Vector2 C = lp.plus(B);
-        Vector2 D = lp.plus(A);
+        Vector2 lp = pos3.minus(P);
+        C = lp.plus(B);
+        D = lp.plus(A);
 
-       // Vector2  e=new ;
+        // Vector2  e=new ;
 //        int a;
 //        int b;
 //        int c;
@@ -43,12 +48,10 @@ public class Rectangle {
 
     public void render(GL2 gl) {
 
-        Figures.renderQuad(gl,A,B,C,D,false){
-
-        }
-        }
+        Figures.renderQuad(gl, A, B, C, D, false);
 
     }
+}
 
 
 

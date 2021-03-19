@@ -138,7 +138,7 @@ public class Problem {
        // Figures.renderTriangle(gl,new Vector2(0,0.3) , new Vector2(-0.9,0),new Vector2(0.4,0.5),false);
        // Figures.renderQuad(gl,new Vector2(1,1) , new Vector2(1,-1),new Vector2(-1,-1),new Vector2(-1,1),true);
         //Figures.renderCircle(gl,new Vector2(0,0),0.5,false);
-        Rectangle r = new Rectangle(new Vector2(0.1,0.1) , new Vector2(0.1,-0.1),new Vector2(-0.1,-0.1),new Vector2(-0.1,0.1));
+        Rectangle r = new Rectangle(new Vector2(0.1,0.1) , new Vector2(-0.1,-0.1),new Vector2(0.2,-0.1));
         r.render(gl);
     }
 
