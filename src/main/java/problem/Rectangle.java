@@ -12,7 +12,7 @@ public class Rectangle {
     Vector2 D;
     Vector2 E;
     Vector2 L;
-    Vector2 v;
+    Vector2 K;
     Vector2 P;
 
     public Rectangle(Vector2 pos1, Vector2 pos2, Vector2 pos3) {
@@ -21,14 +21,11 @@ public class Rectangle {
         this.A = pos1;
         this.B = pos2;
         this.E = pos3;
-        double U = (-1) * ((B.x * A.y - B.x * A.y + B.x * B.y - B.y * A.x) * (B.y - A.y) + (A.x * E.x - B.x * E.x + A.y * E.y - B.y * E.y) + (B.x - A.x)) /
-                ((B.x - A.x) * (B.x - A.x) + (A.y - B.y) * A.y - B.y);
-        double F = (B.x * A.y - B.x * A.y + B.x * B.y - B.y * A.x);
-        double S = (A.x * E.x - B.x * E.x + A.y * E.y - B.y * E.y);
-        P = new Vector2(
-                (-1) * ((B.x * A.y - B.x * A.y + B.x * B.y - B.y * A.x) * (B.y - A.y) + (A.x * E.x - B.x * E.x + A.y * E.y - B.y * E.y) + (B.x - A.x)) /
-                        ((B.x - A.x) * (B.x - A.x) + (A.y - B.y) * A.y - B.y),
-                (S - U * (A.y - B.y) / (B.x - A.x))
+        double U = B.y*A.x*A.x+B.y*B.x*A.x-2*B.y*B.x*B.x+B.x*A.y;
+        double F = -(A.x*E.x*A.y+B.x*E.x*A.y-E.y*A.y*A.y+A.x*E.x*B.y-B.x*E.x*B.y+E.y*A.y*B.y);
+        P = new Vector2((((U-F)/((A.y-B.y)*(A.y-B.y)+(A.x-B.x)*(A.x-B.x)))*(A.x-B.x)+(B.x*A.y-B.y*A.x-2*B.y*B.x))/(A.y-B.y)
+                ,
+                (U-F)/((A.y-B.y)*(A.y-B.y)+(A.x-B.x)*(A.x-B.x))
         );
 
 
@@ -51,6 +48,9 @@ public class Rectangle {
         Figures.renderQuad(gl, A, B, C, D, false);
 
     }
+    //public boolean check(Vector2 pos4){
+        //this.L=pos4;
+    //}
 }
 
 
