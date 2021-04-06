@@ -30,12 +30,14 @@ public class Problem {
      * список точек
      */
     private ArrayList<Point> points;
+    private ArrayList<Rectangle> rectangles;
 
     /**
      * Конструктор класса задачи
      */
     public Problem() {
         points = new ArrayList<>();
+        rectangles = new ArrayList<>();
     }
 
     /**
@@ -43,17 +45,36 @@ public class Problem {
      *
      * @param x      координата X точки
      * @param y      координата Y точки
-     * @param setVal номер множества
      */
-    public void addPoint(double x, double y, int setVal) {
-        Point point = new Point(x, y, setVal);
-        points.add(point);
+    public void addPoint(double x, double y, double x2, double y2, double x3, double y3) {
+        Rectangle rectangle = new Rectangle(new Vector2(x, y), new Vector2(x2, y2), new Vector2(x3, y3));
+        rectangles.add(rectangle);
     }
 
     /**
      * Решить задачу
      */
     public void solve() {
+        for (int i = 0; i < rectangles.size(); i++) {
+            for (int j = i+1; j < rectangles.size(); j++) {
+                ArrayList<Vector2> points   = new ArrayList<>();
+                points.add(rectangles.get(i).A);
+                points.add(rectangles.get(i).B);
+                points.add(rectangles.get(i).C);
+                points.add(rectangles.get(i).D);
+
+                points.add(rectangles.get(j).A);
+                points.add(rectangles.get(j).B);
+                points.add(rectangles.get(j).C);
+                points.add(rectangles.get(j).D);
+
+
+                int finalJ = j;
+                int finalI = i;
+                points.removeIf(p->!rectangles.get(finalI).contains(p)||rectangles.get(finalJ).contains(p));
+            }
+        }
+
         // перебираем пары точек
         for (Point p : points) {
             for (Point p2 : points) {
@@ -113,8 +134,8 @@ public class Problem {
      */
     public void addRandomPoints(int n) {
         for (int i = 0; i < n; i++) {
-            Point p = Point.getRandomPoint();
-            points.add(p);
+            Rectangle p = Rectangle.getRandomRectangle();
+            rectangles.add(p);
         }
     }
 
@@ -123,6 +144,7 @@ public class Problem {
      */
     public void clear() {
         points.clear();
+        rectangles.clear();
     }
 
     /**
@@ -134,12 +156,15 @@ public class Problem {
         for (Point point : points) {
             point.render(gl);
         }
-       // Figures.renderLine(gl,new Vector2(0,1) , new Vector2(-0,0),1);
-       // Figures.renderTriangle(gl,new Vector2(0,0.3) , new Vector2(-0.9,0),new Vector2(0.4,0.5),false);
-       // Figures.renderQuad(gl,new Vector2(1,1) , new Vector2(1,-1),new Vector2(-1,-1),new Vector2(-1,1),true);
+        for (Rectangle rectangle : rectangles) {
+            rectangle.render(gl);
+        }
+        // Figures.renderLine(gl,new Vector2(0,1) , new Vector2(-0,0),1);
+        // Figures.renderTriangle(gl,new Vector2(0,0.3) , new Vector2(-0.9,0),new Vector2(0.4,0.5),false);
+        // Figures.renderQuad(gl,new Vector2(1,1) , new Vector2(1,-1),new Vector2(-1,-1),new Vector2(-1,1),true);
         //Figures.renderCircle(gl,new Vector2(0,0),0.5,false);
-        Rectangle r = new Rectangle(new Vector2(0.6,0.1) , new Vector2(-0.1,-0.1),new Vector2(0.5,0.5));
-        r.render(gl);
+//        Rectangle r = new Rectangle(new Vector2(0.6, 0.1), new Vector2(-0.1, -0.1), new Vector2(0.5, 0.5));
+//        r.render(gl);
     }
 
 }
