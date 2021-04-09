@@ -82,7 +82,7 @@ public class Rectangle {
 
 
     }
-    public boolean contains(){
+    public   Rectangle(Vector N){
 
     }
     //public boolean check(Vector2 pos4){

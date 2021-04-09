@@ -43,8 +43,8 @@ public class Problem {
     /**
      * Добавить точку
      *
-     * @param x      координата X точки
-     * @param y      координата Y точки
+     * @param x координата X точки
+     * @param y координата Y точки
      */
     public void addPoint(double x, double y, double x2, double y2, double x3, double y3) {
         Rectangle rectangle = new Rectangle(new Vector2(x, y), new Vector2(x2, y2), new Vector2(x3, y3));
@@ -56,22 +56,34 @@ public class Problem {
      */
     public void solve() {
         for (int i = 0; i < rectangles.size(); i++) {
-            for (int j = i+1; j < rectangles.size(); j++) {
-                ArrayList<Vector2> points   = new ArrayList<>();
-                points.add(rectangles.get(i).A);
-                points.add(rectangles.get(i).B);
-                points.add(rectangles.get(i).C);
-                points.add(rectangles.get(i).D);
+            for (int j = i + 1; j < rectangles.size(); j++) {
+                ArrayList<Vector2> pointsV = new ArrayList<>();
+                pointsV.add(rectangles.get(i).A);
+                pointsV.add(rectangles.get(i).B);
+                pointsV.add(rectangles.get(i).C);
+                pointsV.add(rectangles.get(i).D);
 
-                points.add(rectangles.get(j).A);
-                points.add(rectangles.get(j).B);
-                points.add(rectangles.get(j).C);
-                points.add(rectangles.get(j).D);
+                pointsV.add(rectangles.get(j).A);
+                pointsV.add(rectangles.get(j).B);
+                pointsV.add(rectangles.get(j).C);
+                pointsV.add(rectangles.get(j).D);
 
+
+                ArrayList<Vector2> pointsI = new ArrayList<>();
+                pointsI.add();
+
+                ArrayList<Vector2> res = new ArrayList<>();
+                for (Vector2 p : pointsV)
+                    if (rectangles.get(i).contains(p) && rectangles.get(j).contains(p))
+                        res.add(p);
+
+                for (Vector2 p : pointsI)
+                    if (rectangles.get(i).contains(p) && rectangles.get(j).contains(p))
+                        res.add(p);
 
                 int finalJ = j;
                 int finalI = i;
-                points.removeIf(p->!rectangles.get(finalI).contains(p)||rectangles.get(finalJ).contains(p));
+                pointsV.removeIf(p -> !rectangles.get(finalI).contains(p) || rectangles.get(finalJ).contains(p));
             }
         }
 
