@@ -31,6 +31,7 @@ public class Problem {
      */
     private ArrayList<Point> points;
     private ArrayList<Rectangle> rectangles;
+    private Polygon resPolygon;
 
     /**
      * Конструктор класса задачи
@@ -55,6 +56,7 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
+        double maxS = 0;
         for (int i = 0; i < rectangles.size(); i++) {
             for (int j = i + 1; j < rectangles.size(); j++) {
                 ArrayList<Vector2> pointsV = new ArrayList<>();
@@ -68,38 +70,36 @@ public class Problem {
                 pointsV.add(rectangles.get(j).C);
                 pointsV.add(rectangles.get(j).D);
 
+                Line lineR1_1 = new Line(rectangles.get(i).A, rectangles.get(i).B);
+                Line lineR1_2 = new Line(rectangles.get(i).B, rectangles.get(i).C);
+                Line lineR1_3 = new Line(rectangles.get(i).C, rectangles.get(i).D);
+                Line lineR1_4 = new Line(rectangles.get(i).D, rectangles.get(i).A);
 
-                ArrayList<Vector2> pointsI = new ArrayList<>();
-                pointsI.add();
+                Line lineR2_1 = new Line(rectangles.get(j).A, rectangles.get(j).B);
+                Line lineR2_2 = new Line(rectangles.get(j).B, rectangles.get(j).C);
+                Line lineR2_3 = new Line(rectangles.get(j).C, rectangles.get(j).D);
+                Line lineR2_4 = new Line(rectangles.get(j).D, rectangles.get(j).A);
 
-                ArrayList<Vector2> res = new ArrayList<>();
-                for (Vector2 p : pointsV)
-                    if (rectangles.get(i).contains(p) && rectangles.get(j).contains(p))
-                        res.add(p);
-
-                for (Vector2 p : pointsI)
-                    if (rectangles.get(i).contains(p) && rectangles.get(j).contains(p))
-                        res.add(p);
+                for (Line line1 : new Line[]{lineR1_1, lineR1_2, lineR1_3, lineR1_4})
+                    for (Line line2 : new Line[]{lineR2_1, lineR2_2, lineR2_3, lineR2_4}) {
+                        Vector2 pointI = line1.getIntersection(line2);
+                        if (pointI != null)
+                            pointsV.add(pointI);
+                    }
 
                 int finalJ = j;
                 int finalI = i;
                 pointsV.removeIf(p -> !rectangles.get(finalI).contains(p) || rectangles.get(finalJ).contains(p));
+                Polygon polygon = new Polygon(pointsV);
+                if (polygon.getS() > maxS) {
+                    resPolygon = polygon;
+                    maxS = polygon.getS();
+                }
+
             }
         }
 
-        // перебираем пары точек
-        for (Point p : points) {
-            for (Point p2 : points) {
-                // если точки являются разными
-                if (p != p2) {
-                    // если координаты у них совпадают
-                    if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
-                        p.isSolution = true;
-                        p2.isSolution = true;
-                    }
-                }
-            }
-        }
+
     }
 
     /**
@@ -157,6 +157,7 @@ public class Problem {
     public void clear() {
         points.clear();
         rectangles.clear();
+        resPolygon = null;
     }
 
     /**
@@ -165,12 +166,17 @@ public class Problem {
      * @param gl переменная OpenGL для рисования
      */
     public void render(GL2 gl) {
+        gl.glColor3d(1, 1, 1);
         for (Point point : points) {
             point.render(gl);
         }
         for (Rectangle rectangle : rectangles) {
             rectangle.render(gl);
         }
+        gl.glColor3d(1, 0, 0);
+        if (resPolygon != null)
+            resPolygon.render(gl);
+
         // Figures.renderLine(gl,new Vector2(0,1) , new Vector2(-0,0),1);
         // Figures.renderTriangle(gl,new Vector2(0,0.3) , new Vector2(-0.9,0),new Vector2(0.4,0.5),false);
         // Figures.renderQuad(gl,new Vector2(1,1) , new Vector2(1,-1),new Vector2(-1,-1),new Vector2(-1,1),true);
@@ -180,3 +186,4 @@ public class Problem {
     }
 
 }
+

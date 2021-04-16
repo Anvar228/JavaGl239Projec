@@ -79,9 +79,8 @@ public class Rectangle {
         double S4 = Math.sqrt(p4 * (p4 - b) * (p4 - f) * (p4 - d));
         double S = a * b;
         return Math.abs(S - (S1 + S2 + S3 + S4)) < 0.01;
-
-
     }
+
     public   Rectangle(Vector N){
 
     }
